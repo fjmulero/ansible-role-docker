@@ -10,6 +10,15 @@ Type=notify
 # the default is not to use systemd for cgroups because the delegate issues still
 # exists and systemd currently does not support the cgroup feature set required
 # for containers run by docker
+{% if docker_http_proxy is defined %}
+Environment="HTTP_PROXY={{docker_http_proxy}}"
+{% endif %}
+{% if docker_https_proxy is defined %}
+Environment="HTTPS_PROXY={{docker_https_proxy}}"
+{% endif %}
+{% if docker_no_proxy is defined %}
+Environment="NO_PROXY={{docker_no_proxy}}"
+{% endif %}
 ExecStart={{docker_bin_dir}}/dockerd \
           --host=unix:///var/run/docker.sock \
           --log-level={{docker_log_level}} \
