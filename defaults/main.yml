@@ -6,6 +6,10 @@ docker_user: "docker"
 docker_group: "docker"
 docker_uid: 666
 docker_gid: 666
+docker_graph_dir: ""
+docker_http_proxy: ""
+docker_https_proxy: ""
+docker_no_proxy: ""
 docker_bin_dir: "/usr/local/bin"
 docker_storage_driver: "overlay"
 docker_log_level: "error"

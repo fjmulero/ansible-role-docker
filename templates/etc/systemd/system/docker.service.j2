@@ -10,15 +10,16 @@ Type=notify
 # the default is not to use systemd for cgroups because the delegate issues still
 # exists and systemd currently does not support the cgroup feature set required
 # for containers run by docker
-{% if docker_http_proxy is defined %}
+{% if docker_http_proxy != "" %}
 Environment="HTTP_PROXY={{docker_http_proxy}}"
 {% endif %}
-{% if docker_https_proxy is defined %}
+{% if docker_https_proxy != "" %}
 Environment="HTTPS_PROXY={{docker_https_proxy}}"
 {% endif %}
-{% if docker_no_proxy is defined %}
+{% if docker_no_proxy != "" %}
 Environment="NO_PROXY={{docker_no_proxy}}"
 {% endif %}
+Environment="PATH={{ansible_env.PATH}}:{{docker_bin_dir}}"
 ExecStart={{docker_bin_dir}}/dockerd \
           --host=unix:///var/run/docker.sock \
           --log-level={{docker_log_level}} \
@@ -26,7 +27,8 @@ ExecStart={{docker_bin_dir}}/dockerd \
           --iptables={{docker_iptables}} \
           --ip-masq={{docker_ip_masq}} \
           --bip={{docker_bip}} \
-          --mtu={{docker_mtu}}
+          --mtu={{docker_mtu}} \
+          --graph={{docker_graph_dir}}
 ExecReload=/bin/kill -s HUP $MAINPID
 LimitNOFILE=1048576
 # Having non-zero Limit*s causes performance problems due to accounting overhead
