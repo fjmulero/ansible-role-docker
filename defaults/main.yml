@@ -6,7 +6,7 @@ docker_user: "docker"
 docker_group: "docker"
 docker_uid: 666
 docker_gid: 666
-docker_graph_dir: ""
+docker_graph_dir: "/var/lib/docker"
 docker_http_proxy: ""
 docker_https_proxy: ""
 docker_no_proxy: ""
